@@ -3,7 +3,11 @@ var Slackbot = require('slackbots')
 
 assert(process.env.ZBOT_TOKEN, 'ZBOT DEMANDS A TOKEN')
 
-var users = []
+var db = {
+  users: [],
+  channels: []
+}
+
 var params = { as_user: true }
 
 var zbot = new Slackbot({
@@ -11,10 +15,7 @@ var zbot = new Slackbot({
   token: process.env.ZBOT_TOKEN
 })
 
-zbot.on('start', function () {
-  zbot.postMessageToUser('ungoldman', 'zbot reporting for duty', params)
-  updateUserData()
-})
+zbot.on('start', updateData)
 
 zbot.on('message', function (data) {
   if (data.bot_id) return // ignore bots, self
@@ -22,13 +23,25 @@ zbot.on('message', function (data) {
 })
 
 function handler (data) {
-  var user = users.find(u => u.id === data.user)
-  console.log(`${user.name || data.user}: ${data.text}`)
+  // var user = db.users.find(u => u.id === data.user)
+  // console.log(`${user.name || data.user}: ${data.text}`)
+  console.log(data)
 }
 
-function updateUserData (data) {
+function updateData () {
+  updateUserData()
+  updateChannelData()
+}
+
+function updateUserData () {
   zbot.getUsers().then(function (data) {
-    users = data.members
+    db.users = data.members
+  })
+}
+
+function updateChannelData () {
+  zbot.getChannels().then(function (data) {
+    db.channels = data.channels
   })
 }
 
