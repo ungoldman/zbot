@@ -1,0 +1,24 @@
+{
+  "name": "zbot",
+  "description": "ZHealth slack bot",
+  "version": "0.0.0",
+  "author": "Nate Goldman <ungoldman@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/ungoldman/zbot/issues"
+  },
+  "dependencies": {
+    "slackbots": "^1.0.2"
+  },
+  "homepage": "https://github.com/ungoldman/zbot",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ungoldman/zbot.git"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
